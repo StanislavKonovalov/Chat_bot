@@ -10,7 +10,6 @@ last_updated_id = 0
 res = requests.get(f"{root_url}{token}/getMe")
 print(res.json())
 
-
 def get_bot_info(token):
 	url = f"{root_url}{token}/getme"
 	res = requests.get(url)
@@ -25,7 +24,6 @@ def get_updates(token):
 		return updates
 	else:
 		print(f"Request failed with status code: {res.status_code}")
-
 
 updates = get_updates(token)
 if len(updates["result"]) > 0:
@@ -49,17 +47,6 @@ def send_message(token, chat_id, text):
 	re = requests.post(url=url, data=data)
 	print(re)
 
-
-"""def get_user_name(token):
-	url = f"{root_url}{token}/getUpdates"
-	res = requests.get(url)
-	user_name = res.json()["result"][0]["message"]["from"]["first_name"]
-	return user_name
-
-
-user_name = get_user_name(token)"""
-
-
 while True:
 	updates = get_updates(token)
 	messages = updates["result"]
@@ -67,7 +54,3 @@ while True:
 		if message['update_id'] > last_updated_id:
 			send_message(token, last_user_id, f"Hello, {last_user_name}")
 			last_updated_id = message['update_id']
-
-
-
-# send_message(token, last_user_id, f"Hello, {last_user}")
